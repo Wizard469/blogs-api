@@ -11,6 +11,16 @@ const categoryService = {
       message: dataValues,
     };
   },
+
+  getAll: async () => {
+    const response = await Category.findAll();
+
+    if (!response) return { status: 404, message: { message: 'Categories not found' } };
+
+    const categories = response.map(({ dataValues }) => dataValues);
+
+    return { status: 200, message: categories };
+  },
 };
 
 module.exports = categoryService;
