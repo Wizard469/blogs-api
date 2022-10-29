@@ -28,7 +28,7 @@ const userService = {
   getAll: async () => {
     const response = await User.findAll();
 
-    if (!response) return { status: 404, message: 'Users not found' };
+    if (!response) return { status: 404, message: { message: 'Users not found' } };
 
     const users = response.map(({ dataValues }) => {
       const user = dataValues;
@@ -38,6 +38,21 @@ const userService = {
     });
 
     return { status: 200, message: users };
+  },
+
+  getById: async ({ id }) => {
+    const user = await User.findByPk(id);
+
+    console.log(user);
+    if (!user) return { status: 404, message: { message: 'User does not exist' } };
+
+    const { password: _, ...userWithoutPassword } = user.dataValues;
+
+    console.log(user);
+    return {
+      status: 200,
+      message: userWithoutPassword,
+    };
   },
 };
 
