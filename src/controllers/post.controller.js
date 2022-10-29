@@ -6,6 +6,12 @@ const postController = {
 
     res.status(status).json(message);
   },
+
+  getById: async (req, res) => {
+    const { status, message } = await postService.getById(req.params);
+
+    res.status(status).json(message);
+  },
 };
 
 module.exports = postController;

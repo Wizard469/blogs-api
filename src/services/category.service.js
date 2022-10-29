@@ -17,9 +17,7 @@ const categoryService = {
 
     if (!response) return { status: 404, message: { message: 'Categories not found' } };
 
-    const categories = response.map(({ dataValues }) => dataValues);
-
-    return { status: 200, message: categories };
+    return { status: 200, message: response };
   },
 };
 

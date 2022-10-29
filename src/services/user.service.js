@@ -30,21 +30,17 @@ const userService = {
 
     if (!response) return { status: 404, message: { message: 'Users not found' } };
 
-    const users = response.map(({ dataValues }) => dataValues);
-
-    return { status: 200, message: users };
+    return { status: 200, message: response };
   },
 
   getById: async ({ id }) => {
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
 
     if (!user) return { status: 404, message: { message: 'User does not exist' } };
 
-    const { password: _, ...userWithoutPassword } = user.dataValues;
-
     return {
       status: 200,
-      message: userWithoutPassword,
+      message: user,
     };
   },
 };
