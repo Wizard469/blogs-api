@@ -6,6 +6,12 @@ const userController = {
 
     res.status(status).json(message);
   },
+
+  getAll: async (_req, res) => {
+    const { status, message } = await userService.getAll();
+
+    res.status(status).json(message);
+  },
 };
 
 module.exports = userController;

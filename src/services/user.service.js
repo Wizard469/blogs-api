@@ -24,6 +24,21 @@ const userService = {
       },
     };
   },
+
+  getAll: async () => {
+    const response = await User.findAll();
+
+    if (!response) return { status: 404, message: 'Users not found' };
+
+    const users = response.map(({ dataValues }) => {
+      const user = dataValues;
+      delete user.password;
+
+      return user;
+    });
+
+    return { status: 200, message: users };
+  },
 };
 
 module.exports = userService;
