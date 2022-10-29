@@ -26,16 +26,11 @@ const userService = {
   },
 
   getAll: async () => {
-    const response = await User.findAll();
+    const response = await User.findAll({ attributes: { exclude: ['password'] } });
 
     if (!response) return { status: 404, message: { message: 'Users not found' } };
 
-    const users = response.map(({ dataValues }) => {
-      const user = dataValues;
-      delete user.password;
-
-      return user;
-    });
+    const users = response.map(({ dataValues }) => dataValues);
 
     return { status: 200, message: users };
   },
