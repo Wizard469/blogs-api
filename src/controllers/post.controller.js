@@ -8,7 +8,14 @@ const postController = {
   },
 
   getById: async (req, res) => {
-    const { status, message } = await postService.getById(req.params);
+    const { id } = req.params;
+    const { status, message } = await postService.getById(id);
+
+    res.status(status).json(message);
+  },
+
+  updatePost: async (req, res) => {
+    const { status, message } = await postService.updatePost(req.params, req.body);
 
     res.status(status).json(message);
   },

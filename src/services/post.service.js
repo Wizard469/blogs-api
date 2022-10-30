@@ -18,7 +18,7 @@ const postService = {
     };
   },
 
-  getById: async ({ id }) => {
+  getById: async (id) => {
     const response = await BlogPost.findByPk(id, {
       attributes: { exclude: ['user_id'] },
       include: [
@@ -32,6 +32,20 @@ const postService = {
     return {
       status: 200,
       message: response,
+    };
+  },
+
+  updatePost: async ({ id }, { title, content }) => {
+    await BlogPost.update(
+      { title, content },
+      { where: { id } },
+    );
+
+    const { message } = await postService.getById(id);
+
+    return {
+      status: 200,
+      message,
     };
   },
 };

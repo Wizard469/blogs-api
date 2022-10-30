@@ -7,6 +7,8 @@ const tokenValidation = (req, res, next) => {
 
   const response = jwt.validateToken(authorization);
 
+  req.user = response;
+
   if (response === false) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
